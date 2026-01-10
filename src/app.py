@@ -37,6 +37,30 @@ def handle_hello():
     return jsonify(response_body), 200
 
 
+@app.route('/members', methods=['POST'])
+def add_memmber():
+    body = request.get_json(silent=True)
+    if body is None:
+        return jsonify({'msg': 'Debes de llenar el body'}), 400
+    if 'first_name' not in body:
+        return jsonify({'msg': 'Debes de llenar el primer nombre'}), 400
+    if 'age' not in body:
+        return jsonify({'msg': 'Debes de llenar la edad'}), 400
+    if 'lucky_numbers' not in body:
+        return jsonify({'msg': 'Debes de llenar el numero de la suerte'}), 400
+    
+    new_member = {
+     'first_name': body['first_name'],
+     'last_name': jackson_family.last_name,
+     'age': body['age'],
+     'lucky_numbers': body['lucky_numbers']
+ }
+    new_member_added = jackson_family.add_member(new_member)
+
+    return jsonify({'msg': 'miembro agregado con éxito',
+                    'usuario agregado': new_member_added
+                    }), 200
+ 
 
 # This only runs if `$ python src/app.py` is executed
 if __name__ == '__main__':
