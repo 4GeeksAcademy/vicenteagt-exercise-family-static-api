@@ -36,12 +36,6 @@ def handle_hello():
     response_body = members
     return jsonify(response_body), 200
 
-@app.route('/members/<int:id>', methods=['GET'])
-def get_members(id):
-    member = jackson_family.get_member(id)
-    response_body = member
-    return jsonify(response_body),200
-
 
 @app.route('/members', methods=['POST'])
 def add_member():
@@ -54,19 +48,26 @@ def add_member():
         return jsonify({'msg': 'Debes de llenar la edad'}), 400
     if 'lucky_numbers' not in body:
         return jsonify({'msg': 'Debes de llenar el numero de la suerte'}), 400
-    
+
     new_member = {
-     'first_name': body['first_name'],
-     'last_name': jackson_family.last_name,
-     'age': body['age'],
-     'lucky_numbers': body['lucky_numbers']
- }
+        'first_name': body['first_name'],
+        'last_name': jackson_family.last_name,
+        'age': body['age'],
+        'lucky_numbers': body['lucky_numbers']
+    }
     new_member_added = jackson_family.add_member(new_member)
 
     return jsonify({'msg': 'miembro agregado con éxito',
                     'usuario agregado': new_member_added
                     }), 200
- 
+
+
+@app.route('/members/<int:id>', methods=['GET'])
+def get_members(id):
+    member = jackson_family.get_member(id)
+    response_body = member
+    return jsonify(response_body), 200
+
 
 # This only runs if `$ python src/app.py` is executed
 if __name__ == '__main__':

@@ -27,11 +27,12 @@ class FamilyStructure:
             },
             {
                 "id": self._generate_id(),
-                "first_name": "Jimmy",
+                "first_name": "Tommy",
                 "last_name": last_name,
-                "age": 5,
-                "lucky_numbers": 1
+                "age": 23,
+                "lucky_numbers": [1,2,3]
             }
+
         ]
 
     # This method generates a unique incremental ID
