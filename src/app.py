@@ -36,6 +36,11 @@ def handle_hello():
     response_body = members
     return jsonify(response_body), 200
 
+@app.route('/members/<int:id>', methods=['GET'])
+def get_members(id):
+    member_select = jackson_family.get_member(id)
+    response_body = member_select
+    return jsonify(response_body)
 
 @app.route('/members', methods=['POST'])
 def add_member():
@@ -48,8 +53,14 @@ def add_member():
         return jsonify({'msg': 'Debes de llenar la edad'}), 400
     if 'lucky_numbers' not in body:
         return jsonify({'msg': 'Debes de llenar el numero de la suerte'}), 400
+    if 'id' in body:
+        custom_id = 'id'
+    else:
+        custom_id = jackson_family._generate_id()
+   
 
     new_member = {
+        'id': custom_id,
         'first_name': body['first_name'],
         'last_name': jackson_family.last_name,
         'age': body['age'],
@@ -62,11 +73,7 @@ def add_member():
                     }), 200
 
 
-@app.route('/members/<int:id>', methods=['GET'])
-def get_members(id):
-    member = jackson_family.get_member(id)
-    response_body = member
-    return jsonify(response_body), 200
+
 
 
 # This only runs if `$ python src/app.py` is executed

@@ -27,10 +27,10 @@ class FamilyStructure:
             },
             {
                 "id": self._generate_id(),
-                "first_name": "Tommy",
+                "first_name": "Jimmy",
                 "last_name": last_name,
-                "age": 23,
-                "lucky_numbers": [1,2,3]
+                "age": 5,
+                "lucky_numbers": 1
             }
 
         ]
@@ -51,9 +51,10 @@ class FamilyStructure:
         pass
 
     def get_member(self, id):
-        for member in self._members:
-            if member["id"] == id:
-                return member
+        for member_mapped in self._members:
+            if member_mapped ["id"] == id:
+                return member_mapped
+        
 
     # This method is done, it returns a list with all the family members
     def get_all_members(self):
