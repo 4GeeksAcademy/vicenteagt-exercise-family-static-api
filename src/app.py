@@ -63,22 +63,21 @@ def add_member():
     }
     new_member_added = jackson_family.add_member(member)
 
-    return jsonify({'msg': 'miembro agregado con éxito',
-                    'usuario agregado': new_member_added
-                    }), 200
+    return jsonify(new_member_added
+                    ), 200
 
 @app.route('/members/<int:id>', methods=['GET'])
 def get_members(id):
     member_select = jackson_family.get_member(id)
     response_body = member_select
-    return jsonify({'msg': response_body}), 200
+    return jsonify(response_body), 200
 
 
 
 @app.route('/members/<int:id>', methods=['DELETE'])
 def delete_member_for_id (id):
     delate = jackson_family.delete_member(id)
-    return jsonify ('done'), 200
+    return jsonify ({'done': True }), 200
 
 
 
