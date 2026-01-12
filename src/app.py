@@ -36,12 +36,6 @@ def handle_hello():
     response_body = members
     return jsonify(response_body), 200
 
-@app.route('/members/<int:id>', methods=['GET'])
-def get_members(id):
-    member_select = jackson_family.get_member(id)
-    response_body = member_select
-    return jsonify(response_body)
-
 @app.route('/members', methods=['POST'])
 def add_member():
     body = request.get_json(silent=True)
@@ -54,24 +48,36 @@ def add_member():
     if 'lucky_numbers' not in body:
         return jsonify({'msg': 'Debes de llenar el numero de la suerte'}), 400
     if 'id' in body:
-        custom_id = 'id'
+        custom_id = body['id']
     else:
         custom_id = jackson_family._generate_id()
    
 
-    new_member = {
+    member = {
         'id': custom_id,
         'first_name': body['first_name'],
         'last_name': jackson_family.last_name,
         'age': body['age'],
         'lucky_numbers': body['lucky_numbers']
     }
-    new_member_added = jackson_family.add_member(new_member)
+    new_member_added = jackson_family.add_member(member)
 
     return jsonify({'msg': 'miembro agregado con éxito',
                     'usuario agregado': new_member_added
                     }), 200
 
+@app.route('/members/<int:id>', methods=['GET'])
+def get_members(id):
+    member_select = jackson_family.get_member(id)
+    response_body = member_select
+    return jsonify({'msg': response_body}), 200
+
+
+
+@app.route('/members/<int:id>', methods=['DELETE'])
+def delete_member_for_id (id):
+    delate = jackson_family.delete_member(id)
+    return jsonify ('done'), 200
 
 
 

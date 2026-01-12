@@ -46,9 +46,9 @@ class FamilyStructure:
         return member
 
     def delete_member(self, id):
-        # You have to implement this method
-        # Loop the list and delete the member with the given id
-        pass
+        for member_mapped_to_eliminated in self._members:
+            if member_mapped_to_eliminated  ["id"] == id:
+                self._members.remove(member_mapped_to_eliminated)
 
     def get_member(self, id):
         for member_mapped in self._members:
